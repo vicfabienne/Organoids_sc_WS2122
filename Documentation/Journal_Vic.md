@@ -40,3 +40,19 @@ all the single-cell datasets that we need:
 3. make a sample sheet 
     - maybe I can use the script I wrote for pigx-sars-cov-2 for this
 4. I think you should also just download the matrix and the normal stuff, open this with scanpy and check it out what you will find there
+
+## ?? 
+
+TODO: Fill in conclusions from last year
+
+## 04/01/2021 
+1. check paper where to find data
+   1. organoid data --> [here](https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-10283/samples/)  
+   2. I'm not sure yet what's the difference between the samples, I assume those with "none" are controls but I don't
+   3. know the difference between the controls
+   4. I'm just starting with the first two for now
+2. download some control organoid data
+3. open the scanpy tutorial
+4. go through the tutorial steps with the organoid data
+5. 
+
