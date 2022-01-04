@@ -46,6 +46,7 @@ all the single-cell datasets that we need:
 TODO: Fill in conclusions from last year
 
 ## 04/01/2021 
+### Nature paper data
 1. check paper where to find data
    1. organoid data --> [here](https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-10283/samples/)  
    2. I'm not sure yet what's the difference between the samples, I assume those with "none" are controls but I don't
@@ -54,5 +55,10 @@ TODO: Fill in conclusions from last year
 2. download some control organoid data
 3. open the scanpy tutorial
 4. go through the tutorial steps with the organoid data
-5. 
+   1. the feature files always only have 1 column the gene symbol column, but we need at least two columns with the 
+   additional Enselmbe ID. See [here](https://github.com/theislab/scanpy/issues/2053). Apparently there is an R-package
+   that can do this automatically ([biomaRt](https://bioinformatics.stackexchange.com/questions/5229/converting-gene-symbol-to-ensembl-id-in-r)). 
+   I will ask Tancredi tomorrow if there might be an easier way too. For now I continue with some of the other data.  
+
+### Fitzgerald paper
 
