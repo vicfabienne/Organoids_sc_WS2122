@@ -1,0 +1,22 @@
+---
+title: "R Notebook"
+author: vfs
+date: 11.01.22
+output: html_document
+---
+
+
+```{r}
+library(dplyr)
+
+organoid_features <- '../../data/Garcia_Alonso_organoid/organoids7090723_features.tsv'
+tissue_features <- '../../data/Garcia_Alonso_tissue/MRC_Endo8715415_features.tsv'
+
+```
+
+read data:
+```{r}
+organoid_features <- read.table(organoid_features, sep = "\t")
+tissue_features <- read.table(tissue_features, sep = "\t")
+
+```
