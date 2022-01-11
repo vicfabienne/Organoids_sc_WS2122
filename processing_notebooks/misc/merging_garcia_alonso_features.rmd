@@ -8,15 +8,40 @@ output: html_document
 
 ```{r}
 library(dplyr)
+library(tidyr)
+library(plyr)
 
-organoid_features <- '../../data/Garcia_Alonso_organoid/organoids7090723_features.tsv'
-tissue_features <- '../../data/Garcia_Alonso_tissue/MRC_Endo8715415_features.tsv'
+organoid_features <- 'data/Garcia_Alsonso_organoid/organoids7090723_features.tsv'
+tissue_features <- 'data/Garcia_Alonso_tissue/MRC_Endo8715415_features.tsv'
 
 ```
 
 read data:
 ```{r}
-organoid_features <- read.table(organoid_features, sep = "\t")
-tissue_features <- read.table(tissue_features, sep = "\t")
+organoid_features_tab <- read.table(organoid_features, sep = "\t")
+tissue_features_tab <- read.table(tissue_features, sep = "\t")
+
+features_merged <- full_join(organoid_features_tab, tissue_features_tab)
+```
+
+build a dataframe with the required length 33694:
+
+```{r}
+synth <- data.frame(V1 = rep('AAA', 4281))
+
+features_merged_synth <- full_join(features_merged,synth) %>%
+                         mutate(V2 = V1) %>%
+                         mutate(V3 = "Gene expression")
 
 ```
+save synthetic features file:
+
+```{r}
+write.table(features_merged_synth, "data/Garcia_Alonso_tissue/synthetic_features.tsv",
+            sep = "\t",
+            row.names = FALSE,
+            quote = FALSE,
+            col.names = FALSE)
+```
+
+
