@@ -12,7 +12,7 @@ library(tidyr)
 library(plyr)
 
 organoid_features <- 'data/Garcia_Alsonso_organoid/organoids7090723_features.tsv'
-tissue_features <- 'data/Garcia_Alonso_tissue/MRC_Endo8715415_features.tsv'
+tissue_features <- 'data/Garcia_Alonso_tissue/4861STDY7387181_genes.tsv'
 fitzgerald_features <- 'data/endometrial_organoids_fritzgeraldetal/features.tsv'
 
 ```
@@ -32,9 +32,9 @@ features_merged <- full_join(tissue_features_tab, fitzgerald_features_tab)
 build a dataframe with the required length 33694:
 synthetic way: (doesn't work)
 ```{r}
-synth <- data.frame(V1 = rep('AAA', 4281))
+synth <- data.frame(V1 = rep('AAA', 5080))
 
-features_merged_synth <- full_join(features_merged,synth) %>%
+features_merged_synth <- full_join(tissue_features_tab,synth) %>%
                          mutate(V2 = V1) %>%
                          mutate(V3 = "Gene expression")
 
@@ -53,7 +53,7 @@ features_merged_synth <- synth_cut %>%
 save synthetic features file:
 
 ```{r}
-write.table(features_merged_synth, "data/Garcia_Alonso_tissue/synthetic_features.tsv",
+write.table(features_merged_synth, "data/Garcia_Alonso_tissue/4861STDY7387181_genes.tsv",
             sep = "\t",
             row.names = FALSE,
             quote = FALSE,
