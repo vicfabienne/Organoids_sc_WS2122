@@ -1,0 +1,44 @@
+---
+title: "R Notebook"
+date: 05.01.22
+output:
+rmarkdown::html_document:
+theme: darkly
+---
+
+```{r}
+system("gunzip '/home/vfs/PycharmProjects/Organoids_sc_WS2122/data/Garcia_Alonso_tissue/MRC_Endo8715415_features.tsv.gz'")
+```
+```{r, message = FALSE}
+library(dplyr)
+
+feature_content <- read.table("data/Garcia_Alonso_tissue/4861STDY7387181_genes.tsv", sep = "\t")
+
+feature_content_extended <- feature_content %>%
+                            mutate(V2 = V1) %>%
+                            mutate(V3 = "Gene expression")
+```
+
+```{r}
+library(dplyr)
+
+fitzgerald_features <- read.table('data/endometrial_organoids_fritzgeraldetal/features.tsv', sep = "\t")
+EMBL_ID <- as_tibble(fitzgerald_features$V1)
+
+EMBL_ID_sliced <- EMBL_ID %>% slice_head(n = 28614)
+
+feature_content <- read.table("data/Garcia_Alonso_tissue/MRC_Endo8715415_features.tsv", sep = "\t")
+
+feature_content_extended <- bind_cols(EMBL_ID_sliced, feature_content) %>%
+                            mutate(V3 = "Gene expression")
+
+```
+
+```{r}
+write.table(feature_content_extended, "data/Garcia_Alonso_tissue/4861STDY7387181_genes.tsv", sep = "\t",
+            row.names = FALSE, col.names = FALSE, 
+            quote = FALSE)
+```
+```{r}
+system("gzip '/home/vfs/PycharmProjects/Organoids_sc_WS2122/data/Garcia_Alonso_tissue/MRC_Endo8715415_features.tsv'")
+```

@@ -1,0 +1,63 @@
+---
+title: "R Notebook"
+author: vfs
+date: 11.01.22
+output: html_document
+---
+
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(plyr)
+
+organoid_features <- 'data/Garcia_Alsonso_organoid/organoids7090723_features.tsv'
+tissue_features <- 'data/Garcia_Alonso_tissue/4861STDY7387181_genes.tsv'
+fitzgerald_features <- 'data/endometrial_organoids_fritzgeraldetal/features.tsv'
+
+```
+
+read data:
+```{r}
+#organoid_features_tab <- read.table(organoid_features, sep = "\t")
+tissue_features_tab <- read.table(tissue_features, sep = "\t")
+fitzgerald_features_tab <- read.table(fitzgerald_features, sep = "\t")
+fitzgerald_features_tab <- fitzgerald_features_tab %>% select(V2)
+colnames(fitzgerald_features_tab) <- "V1"
+
+#features_merged <- full_join(organoid_features_tab, tissue_features_tab, fitzgerald_features_tab)
+features_merged <- full_join(tissue_features_tab, fitzgerald_features_tab)
+```
+
+build a dataframe with the required length 33694:
+synthetic way: (doesn't work)
+```{r}
+synth <- data.frame(V1 = rep('AAA', 5080))
+
+features_merged_synth <- full_join(tissue_features_tab,synth) %>%
+                         mutate(V2 = V1) %>%
+                         mutate(V3 = "Gene expression")
+
+```
+cut to the right length:
+```{r}
+
+synth_cut <- features_merged %>% 
+  slice_head(n = 33694)
+
+features_merged_synth <- synth_cut %>%
+                         mutate(V2 = V1) %>%
+                         mutate(V3 = "Gene expression")
+```
+
+save synthetic features file:
+
+```{r}
+write.table(features_merged_synth, "data/Garcia_Alonso_tissue/4861STDY7387181_genes.tsv",
+            sep = "\t",
+            row.names = FALSE,
+            quote = FALSE,
+            col.names = FALSE)
+```
+
+
